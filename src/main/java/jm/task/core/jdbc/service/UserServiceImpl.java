@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void dropUsersTable() {
-        String sql = "DROP TABLE IF EXISTS studyuser.users";
+        String sql = "DROP TABLE IF EXISTS studyuser.User";
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     public void saveUser(String name, String lastname, byte age) {
 // Вот с этим методом у меня непонимание. Прошу помочь и подталкнуть.
         try (Connection connection = Util.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO studyuser.users VALUES(name,lastname,age)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO studyuser.User VALUES(name,lastname,age)")) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastname);
             preparedStatement.setByte(3, age);
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
 
         List<User> userslist = new ArrayList<>();
         try (Connection connection = Util.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM db113 ORDER BY id")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM studyuser.User ORDER BY id")) {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void cleanUsersTable() {
-        String sql = "TRUNCATE TABLE studyuser.users1";
+        String sql = "TRUNCATE TABLE studyuser.User";
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);

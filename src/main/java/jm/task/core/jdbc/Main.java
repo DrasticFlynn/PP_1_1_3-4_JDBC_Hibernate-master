@@ -29,7 +29,7 @@ public class Main {
    //   us.getAllUsers();
   //     us.dropUsersTable(); // Работает корректно
     //   us.createUsersTable(); // Работает корректно
-  // us.saveUser("JJJJ","OOOOO", (byte) 10);
+   us.saveUser("JJJJ","OOOOO", (byte) 10);
    //     us.cleanUsersTable(); // Работает корректно
         //  us.removeUserById(1); // Работает корректно
     }
