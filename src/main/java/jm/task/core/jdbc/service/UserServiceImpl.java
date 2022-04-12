@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserService {
                 "    lastname VARCHAR (30) not null,\n" +
                 "    age SMALLSERIAL \n" +
                 ");";
-
         try (Connection connection = Util.getConnection()) {
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(sql);
@@ -38,12 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void saveUser(String name, String lastname, byte age) {
-// Вот с этим методом у меня непонимание. Прошу помочь и подталкнуть.
+    public void saveUser(String name, String lastName, byte age) {
         try (Connection connection = Util.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO studyuser.User VALUES(name,lastname,age)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO studyuser.User (name,lastName,age) VALUES (?,?,?)")) {
             preparedStatement.setString(1, name);
-            preparedStatement.setString(2, lastname);
+            preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
 
@@ -51,11 +49,10 @@ public class UserServiceImpl implements UserService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
-    public void removeUserById(long idd) {
 
+    public void removeUserById(long idd) {
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM studyuser.User WHERE id = ?")) {
 
@@ -71,7 +68,6 @@ public class UserServiceImpl implements UserService {
 
 
     public List<User> getAllUsers() {
-
         List<User> userslist = new ArrayList<>();
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM studyuser.User ORDER BY id")) {
@@ -91,6 +87,7 @@ public class UserServiceImpl implements UserService {
 
         System.out.println(userslist);
         return userslist;
+
     }
 
     public void cleanUsersTable() {
