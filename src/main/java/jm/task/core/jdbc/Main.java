@@ -27,10 +27,10 @@ public class Main {
 //        }
        UserServiceImpl us = new UserServiceImpl();
        UserDaoJDBCImpl us1 = new UserDaoJDBCImpl();
-   //   us.getAllUsers();
+     us.getAllUsers();
   //     us.dropUsersTable(); // Работает корректно
-  //    us1.createUsersTable(); // Работает корректно
-  // us.saveUser("JJJJ","OOOOO", (byte) 10);
+    //  us1.createUsersTable(); // Работает корректно
+   //us.saveUser("JJJJ","OOOOO", (byte) 10);
    //     us.cleanUsersTable(); // Работает корректно
         //  us.removeUserById(1); // Работает корректно
     }
