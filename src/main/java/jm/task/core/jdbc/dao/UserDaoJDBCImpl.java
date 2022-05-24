@@ -8,85 +8,83 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    public UserDaoJDBCImpl() {
+    public UserDaoJDBCImpl() throws SQLException {
 
     }
+
     Connection connection = Util.getConnection();
 
 
-
-    public void createUsersTable() {
+    public void createUsersTable() throws SQLException {
 
         String sql =
                 " CREATE table if not exists studyuser.User (\n" +
-                "    id BIGSERIAL primary key not null,\n" +
-                "    name VARCHAR (20) not null,\n" +
-                "    lastname VARCHAR (30) not null,\n" +
-                "    age SMALLSERIAL \n" +
-                ");";
+                        "    id BIGSERIAL primary key not null,\n" +
+                        "    name VARCHAR (20) not null,\n" +
+                        "    lastname VARCHAR (30) not null,\n" +
+                        "    age SMALLSERIAL \n" +
+                        ");";
 
 
         try (Statement statement = connection.createStatement()) {
-            connection.setAutoCommit(false);
             statement.executeUpdate(sql);
             connection.commit();
-            connection.rollback();
+
 
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         }
     }
 
 
-
-    public void dropUsersTable() {
+    public void dropUsersTable() throws SQLException {
         String sql =
                 "DROP TABLE IF EXISTS studyuser.User;";
         try (Statement statement = connection.createStatement()) {
-            connection.setAutoCommit(false);
             statement.executeUpdate(sql);
             connection.commit();
-            connection.rollback();
+
 
         } catch (SQLException throwables) {
+            connection.rollback();
             throwables.printStackTrace();
         }
     }
 
-    public void saveUser(String name, String lastname, byte age) {
+    public void saveUser(String name, String lastname, byte age) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO studyuser.User ( name,lastname,age) VALUES (?,?,?);")) {
-            connection.setAutoCommit(false);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastname);
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
             connection.commit();
-            connection.rollback();
+
 
         } catch (SQLException throwables) {
+            connection.rollback();
             throwables.printStackTrace();
         }
 
     }
 
-    public void removeUserById(long id) {
+    public void removeUserById(long id) throws SQLException {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM studyuser.User WHERE id = ?;")) {
-            connection.setAutoCommit(false);
             preparedStatement.setInt(1, (int) id);
             preparedStatement.executeUpdate();
             connection.commit();
-            connection.rollback();
+
 
         } catch (SQLException throwables) {
+            connection.rollback();
             throwables.printStackTrace();
         }
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException {
         List<User> userslist = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM studyuser.User ORDER BY id; ")) {
-            connection.setAutoCommit(false);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -98,8 +96,9 @@ public class UserDaoJDBCImpl implements UserDao {
 
             }
             connection.commit();
-            connection.rollback();
+
         } catch (SQLException throwables) {
+            connection.rollback();
             throwables.printStackTrace();
         }
 
@@ -107,15 +106,15 @@ public class UserDaoJDBCImpl implements UserDao {
         return userslist;
     }
 
-    public void cleanUsersTable() {
+    public void cleanUsersTable() throws SQLException {
         String sql = "TRUNCATE TABLE studyuser.User;";
         try (Statement statement = connection.createStatement()) {
-            connection.setAutoCommit(false);
             statement.executeUpdate(sql);
             connection.commit();
-            connection.rollback();
+
 
         } catch (SQLException e) {
+            connection.rollback();
             e.printStackTrace();
         }
     }

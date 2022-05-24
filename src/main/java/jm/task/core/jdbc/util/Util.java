@@ -11,24 +11,17 @@ public class Util {
     private static final String Password = "postgres";
 
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
         Connection connection = null;
-//        try {
-//            Class.forName("org.postgresql.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+
         try {
             connection = DriverManager.getConnection(URL, Username, Password);
+            connection.setAutoCommit(false);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-//        try {
-//            connection.setAutoCommit(false);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
+
         return connection;
     }
 
