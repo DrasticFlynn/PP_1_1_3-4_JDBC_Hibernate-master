@@ -70,7 +70,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
 
-    public void dropUsersTable1() throws SQLException {
+    private void dropUsersTable1() throws SQLException {
         String sql =
                 "DROP TABLE IF EXISTS studyuser.User;";
         try (Statement statement = connection.createStatement()) {
