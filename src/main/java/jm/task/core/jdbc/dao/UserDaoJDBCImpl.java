@@ -12,10 +12,42 @@ public class UserDaoJDBCImpl implements UserDao {
 
     }
 
+
     Connection connection = Util.getConnection();
 
 
+    @Override
     public void createUsersTable() throws SQLException {
+        createUsersTable1();
+    }
+
+    @Override
+    public void dropUsersTable() throws SQLException {
+        dropUsersTable1();
+    }
+
+    @Override
+    public void saveUser(String name, String lastName, byte age) throws SQLException {
+        saveUser1("Ivan", "Ivanov", (byte) 5);
+    }
+
+    @Override
+    public void removeUserById(long id) throws SQLException {
+        Long id1 = Long.valueOf(0);
+        removeUserById1(id);
+    }
+
+    @Override
+    public List<User> getAllUsers() throws SQLException {
+        return getAllUsers1();
+    }
+
+    @Override
+    public void cleanUsersTable() throws SQLException {
+        cleanUsersTable1();
+    }
+
+    private void createUsersTable1() throws SQLException {
 
         String sql =
                 " CREATE table if not exists studyuser.User (\n" +
@@ -38,7 +70,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
 
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable1() throws SQLException {
         String sql =
                 "DROP TABLE IF EXISTS studyuser.User;";
         try (Statement statement = connection.createStatement()) {
@@ -52,7 +84,8 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void saveUser(String name, String lastname, byte age) throws SQLException {
+    private void saveUser1(String name, String lastname, byte age) throws SQLException {
+
         try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO studyuser.User ( name,lastname,age) VALUES (?,?,?);")) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastname);
@@ -68,7 +101,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     }
 
-    public void removeUserById(long id) throws SQLException {
+    private void removeUserById1(long id) throws SQLException {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM studyuser.User WHERE id = ?;")) {
             preparedStatement.setInt(1, (int) id);
@@ -82,7 +115,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    private List<User> getAllUsers1() throws SQLException {
         List<User> userslist = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM studyuser.User ORDER BY id; ")) {
             ResultSet rs = preparedStatement.executeQuery();
@@ -106,7 +139,7 @@ public class UserDaoJDBCImpl implements UserDao {
         return userslist;
     }
 
-    public void cleanUsersTable() throws SQLException {
+    private void cleanUsersTable1() throws SQLException {
         String sql = "TRUNCATE TABLE studyuser.User;";
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);

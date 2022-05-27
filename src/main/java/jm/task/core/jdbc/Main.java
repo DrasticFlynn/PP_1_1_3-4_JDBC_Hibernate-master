@@ -25,8 +25,8 @@ public class Main {
 //            System.out.print(rs.getInt("age"));
 //            System.out.println();
 //        }
-       UserServiceImpl us = new UserServiceImpl();
-       UserDaoJDBCImpl us1 = new UserDaoJDBCImpl();
+//       UserServiceImpl us = new UserServiceImpl();
+//       UserDaoJDBCImpl us1 = new UserDaoJDBCImpl();
    //  us.getAllUsers();
   //     us.dropUsersTable(); // Работает корректно
     //  us1.createUsersTable(); // Работает корректно

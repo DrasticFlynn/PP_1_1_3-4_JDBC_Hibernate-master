@@ -10,7 +10,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    UserDaoJDBCImpl ud = new UserDaoJDBCImpl();
+  private UserDaoJDBCImpl ud = new UserDaoJDBCImpl();
 
     public UserServiceImpl() throws SQLException {
     }
@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAllUsers() throws SQLException {
         return ud.getAllUsers();
+
     }
 
     public void cleanUsersTable() throws SQLException {
