@@ -15,6 +15,9 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) throws SQLException {
         // реализуйте алгоритм здесь
+
+        UserDaoJDBCImpl ud = new UserDaoJDBCImpl();
+        ud.createUsersTable();
 //        Connection connection = Util.getConnection();
 //        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM studyuser.db113");
 //        ResultSet rs = preparedStatement.executeQuery();
