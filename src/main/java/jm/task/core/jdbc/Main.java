@@ -1,5 +1,6 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.dao.UserDao;
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
@@ -15,26 +16,19 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) throws SQLException {
         // реализуйте алгоритм здесь
+        Util.getConnection();
 
-        UserDaoJDBCImpl ud = new UserDaoJDBCImpl();
+        UserDao ud = new UserDaoJDBCImpl();
         ud.createUsersTable();
-//        Connection connection = Util.getConnection();
-//        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM studyuser.db113");
-//        ResultSet rs = preparedStatement.executeQuery();
-//        while (rs.next()){
-//            System.out.print(rs.getInt("id"));
-//            System.out.print(rs.getString("name"));
-//            System.out.print(rs.getString("lastname"));
-//            System.out.print(rs.getInt("age"));
-//            System.out.println();
-//        }
-//       UserServiceImpl us = new UserServiceImpl();
-//       UserDaoJDBCImpl us1 = new UserDaoJDBCImpl();
-   //  us.getAllUsers();
-  //     us.dropUsersTable(); // Работает корректно
-    //  us1.createUsersTable(); // Работает корректно
-   //us.saveUser("JJJJ","OOOOO", (byte) 10);
-   //     us.cleanUsersTable(); // Работает корректно
-        //  us.removeUserById(1); // Работает корректно
+
+        ud.saveUser("John1", "Johnson1", (byte) 10);
+        ud.saveUser("Bob2", "Bobson2", (byte) 20);
+        ud.saveUser("Zak3", "Zakson3", (byte) 30);
+        ud.saveUser("Wayne4", "Wayneson4", (byte) 40);
+
+        ud.removeUserById(1);
+        ud.getAllUsers();
+        ud.cleanUsersTable();
+        ud.dropUsersTable();
     }
 }

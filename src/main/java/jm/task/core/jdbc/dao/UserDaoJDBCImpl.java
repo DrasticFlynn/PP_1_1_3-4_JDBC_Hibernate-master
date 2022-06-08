@@ -16,8 +16,7 @@ public class UserDaoJDBCImpl implements UserDao {
     Connection connection = Util.getConnection();
 
 
-    
-
+    @Override
     public void createUsersTable() throws SQLException {
 
         String sql =
