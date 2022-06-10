@@ -13,7 +13,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
 
-    Connection connection = Util.getConnection();
+    private Connection connection = Util.getConnection();
 
 
     @Override
@@ -72,7 +72,6 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) throws SQLException {
-
         try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM studyuser.User WHERE id = ?;")) {
             preparedStatement.setInt(1, (int) id);
             preparedStatement.executeUpdate();

@@ -1,5 +1,7 @@
 package jm.task.core.jdbc.service;
 
+import jm.task.core.jdbc.Main;
+import jm.task.core.jdbc.dao.UserDao;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
@@ -26,12 +28,19 @@ public class UserServiceImpl implements UserService {
 
 
     public void saveUser(String name, String lastName, byte age) throws SQLException {
-        ud.saveUser("Ivan", "Ivanov", (byte) 5);
+        // Теперь работает, как надо
+        String usName = name;
+        String usLastname = lastName;
+        byte usAge = age;
+        ud.saveUser(usName, usLastname, usAge);
+
     }
 
 
-    public void removeUserById(long idd) throws SQLException {
-        ud.removeUserById(4);
+    public void removeUserById(long id) throws SQLException {
+        // теперь работает как надо
+        Long usId = id;
+        ud.removeUserById(usId);
 
     }
 

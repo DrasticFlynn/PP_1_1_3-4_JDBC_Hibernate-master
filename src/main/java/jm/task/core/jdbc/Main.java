@@ -17,19 +17,19 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         // реализуйте алгоритм здесь
         Util.getConnection();
+// тут всё переписал - я обращался не к тому классу, по этому не замечал ошибку, о которой мы говорили ранее
+        UserServiceImpl us = new UserServiceImpl();
+        us.createUsersTable();
 
-        UserDao ud = new UserDaoJDBCImpl();
-        ud.createUsersTable();
+        us.saveUser("John1", "Johnson1", (byte) 10);
+        us.saveUser("Bob2", "Bobson2", (byte) 20);
+        us.saveUser("Zak3", "Zakson3", (byte) 30);
+        us.saveUser("Wayne4", "Wayneson4", (byte) 40);
 
-        ud.saveUser("John1", "Johnson1", (byte) 10);
-        ud.saveUser("Bob2", "Bobson2", (byte) 20);
-        ud.saveUser("Zak3", "Zakson3", (byte) 30);
-        ud.saveUser("Wayne4", "Wayneson4", (byte) 40);
-
-        ud.removeUserById(1);
-        ud.getAllUsers();
-        ud.cleanUsersTable();
-        ud.dropUsersTable();
+        us.removeUserById(1);
+        us.getAllUsers();
+        us.cleanUsersTable();
+        us.dropUsersTable();
 
     }
 }
