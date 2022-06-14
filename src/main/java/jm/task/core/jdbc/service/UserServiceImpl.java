@@ -53,4 +53,6 @@ public class UserServiceImpl implements UserService {
     public void cleanUsersTable() throws SQLException {
         ud.cleanUsersTable();
     }
+
+
 }
