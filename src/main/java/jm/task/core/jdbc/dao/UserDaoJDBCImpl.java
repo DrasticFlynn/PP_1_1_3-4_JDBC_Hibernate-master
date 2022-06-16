@@ -17,7 +17,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
     @Override
-    public void createUsersTable() throws SQLException {
+    public void createUsersTable() {
 
         String sql =
                 " CREATE table if not exists studyuser.User (\n" +
@@ -34,13 +34,17 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
         } catch (SQLException e) {
-            connection.rollback();
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             e.printStackTrace();
         }
     }
 
 
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable() {
         String sql =
                 "DROP TABLE IF EXISTS studyuser.User;";
         try (Statement statement = connection.createStatement()) {
@@ -49,12 +53,16 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
         } catch (SQLException throwables) {
-            connection.rollback();
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             throwables.printStackTrace();
         }
     }
 
-    public void saveUser(String name, String lastname, byte age) throws SQLException {
+    public void saveUser(String name, String lastname, byte age) {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO studyuser.User ( name,lastname,age) VALUES (?,?,?);")) {
             preparedStatement.setString(1, name);
@@ -65,13 +73,17 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
         } catch (SQLException throwables) {
-            connection.rollback();
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             throwables.printStackTrace();
         }
 
     }
 
-    public void removeUserById(long id) throws SQLException {
+    public void removeUserById(long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM studyuser.User WHERE id = ?;")) {
             preparedStatement.setInt(1, (int) id);
             preparedStatement.executeUpdate();
@@ -79,12 +91,16 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
         } catch (SQLException throwables) {
-            connection.rollback();
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             throwables.printStackTrace();
         }
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers() {
         List<User> userslist = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM studyuser.User ORDER BY id; ")) {
             ResultSet rs = preparedStatement.executeQuery();
@@ -100,7 +116,11 @@ public class UserDaoJDBCImpl implements UserDao {
             connection.commit();
 
         } catch (SQLException throwables) {
-            connection.rollback();
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             throwables.printStackTrace();
         }
 
@@ -108,7 +128,7 @@ public class UserDaoJDBCImpl implements UserDao {
         return userslist;
     }
 
-    public void cleanUsersTable() throws SQLException {
+    public void cleanUsersTable() {
         String sql = "TRUNCATE TABLE studyuser.User;";
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
@@ -116,7 +136,11 @@ public class UserDaoJDBCImpl implements UserDao {
 
 
         } catch (SQLException e) {
-            connection.rollback();
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
             e.printStackTrace();
         }
     }
