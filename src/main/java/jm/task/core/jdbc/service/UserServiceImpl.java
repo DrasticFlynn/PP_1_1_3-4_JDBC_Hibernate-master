@@ -13,21 +13,29 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 
-    public UserServiceImpl() throws SQLException {
+    public UserServiceImpl()  {
 
     }
-    private UserDaoJDBCImpl ud = new UserDaoJDBCImpl();
+    private UserDaoJDBCImpl ud;
 
-    public void createUsersTable() throws SQLException {
+    {
+        try {
+            ud = new UserDaoJDBCImpl();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void createUsersTable()  {
         ud.createUsersTable();
     }
 
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable()  {
         ud.dropUsersTable();
     }
 
 
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public void saveUser(String name, String lastName, byte age)  {
         // Теперь работает, как надо
         String usName = name;
         String usLastname = lastName;
@@ -37,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void removeUserById(long id) throws SQLException {
+    public void removeUserById(long id)  {
         // теперь работает как надо
         Long usId = id;
         ud.removeUserById(usId);
@@ -45,12 +53,12 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers()  {
         return ud.getAllUsers();
 
     }
 
-    public void cleanUsersTable() throws SQLException {
+    public void cleanUsersTable()  {
         ud.cleanUsersTable();
     }
 
